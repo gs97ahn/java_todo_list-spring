@@ -35,15 +35,13 @@
 ## API
 - User
 
-| Content   | HTTP Method | URI | Response |
-|-----------|-------------|-----|----------|
-| signUp    | POST        |     |          |
-| update    | PATCH       |     |          |
-| delete    | DELETE      |     |          |
-| findOne   | GET         |     |          |
-| findUsers | GET         |     |          |
-
-- Todo List
-
-## How it Works
-
+| Content               | HTTP Method | URI                  | Response                    |
+|-----------------------|-------------|----------------------|-----------------------------|
+| User Sign Up          | POST        | /users               | HTTP response + userId      |
+| User update           | PATCH       | /users/{userId}      | HTTP response + userId      |
+| User findOne          | GET         | /users/{userId}      | HTTP response + User        |
+| User findAll          | GET         | /users               | HTTP response + List<User>  |
+| Todo create           | POST        | /users/{userId}/todo | HTTP response + todoId      |
+| Todo update           | PATCH       | /todo/{todoId}       | HTTP response + todoId      |
+| Todo delete           | DELETE      | /todos/{todoId}      | HTTP response + User        |
+| Todo findTodoWithUser | GET         | /todos/{todoId}      | HTTP response + Todo + User |
