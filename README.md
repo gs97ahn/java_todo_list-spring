@@ -20,7 +20,7 @@
 | modifiedDate | LocalDateTime |
 | todoList     | List<Todo>    |
 
-- Todo List
+- Todo
 
 | Variable     | Type          |
 |--------------|---------------|
