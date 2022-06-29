@@ -24,16 +24,16 @@ public class UserServiceIntegrationTest {
     public void signUp() {
         // given
         UserCreateRequest user = new UserCreateRequest();
-        user.setName("Test");
-        user.setEmail("test@test.com");
+        user.setName("Name");
+        user.setEmail("email@email.com");
         user.setGender('M');
         user.setBirthdate(LocalDate.parse("1997-01-01"));
 
         // when
-        Long savedUserId = userService.signUp(user);
+        Long createdUserId = userService.signUp(user);
 
         // then
-        User foundUser = userService.findOne(savedUserId);
+        User foundUser = userService.findOne(createdUserId);
         assertThat(user.getName()).isEqualTo(foundUser.getName());
     }
 
@@ -41,14 +41,14 @@ public class UserServiceIntegrationTest {
     public void duplicateUserException() {
         // given
         UserCreateRequest user1 = new UserCreateRequest();
-        user1.setName("Test");
-        user1.setEmail("test@test.com");
+        user1.setName("Name");
+        user1.setEmail("email@email.com");
         user1.setGender('M');
         user1.setBirthdate(LocalDate.parse("1997-01-01"));
 
         UserCreateRequest user2 = new UserCreateRequest();
-        user2.setName("Test");
-        user2.setEmail("test@test.com");
+        user2.setName("Name");
+        user2.setEmail("email@email.com");
         user2.setGender('M');
         user2.setBirthdate(LocalDate.parse("1997-01-01"));
 
@@ -63,17 +63,18 @@ public class UserServiceIntegrationTest {
     void update() {
         // given
         UserCreateRequest user = new UserCreateRequest();
-        user.setName("Test");
-        user.setEmail("test@test.com");
+        user.setName("Name");
+        user.setEmail("email@email.com");
         user.setGender('M');
         user.setBirthdate(LocalDate.parse("1997-01-01"));
         Long savedUserId = userService.signUp(user);
 
-        // when
         UserUpdateRequest updatingUser = new UserUpdateRequest();
-        updatingUser.setName("Update Test");
+        updatingUser.setName("Updated Name");
         updatingUser.setGender(user.getGender());
         updatingUser.setBirthdate(user.getBirthdate());
+
+        // when
         userService.update(savedUserId, updatingUser);
 
         // then
@@ -84,7 +85,7 @@ public class UserServiceIntegrationTest {
     void nonExistingUserUpdateException() {
         // given
         UserUpdateRequest user = new UserUpdateRequest();
-        user.setName("Test Name");
+        user.setName("Name");
         user.setGender('M');
         user.setBirthdate(LocalDate.parse("1997-01-01"));
 
