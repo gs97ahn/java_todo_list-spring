@@ -44,3 +44,16 @@
 | Todo update           | PATCH       | /todo/{todoId}       | HTTP response + todoId      |
 | Todo delete           | DELETE      | /todos/{todoId}      | HTTP response + User        |
 | Todo findTodoWithUser | GET         | /todos/{todoId}      | HTTP response + Todo + User |
+
+## Test Case
+- userService
+  - signUp
+  - duplicateUserException
+  - update
+  - nonExistingUserUpdateException
+- todoService
+  - create
+  - update
+  - nonExistingTodoUpdateException
+  - delete
+  - nonExistingTodoDeleteException
