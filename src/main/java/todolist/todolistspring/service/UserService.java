@@ -41,9 +41,7 @@ public class UserService {
             updatingUser.setGender(request.getGender());
             updatingUser.setBirthdate(request.getBirthdate());
             return updatingUser.getId();
-        } else {
-            throw new IllegalStateException("Non-existing user");
-        }
+        } else throw new IllegalStateException("Non-existing user");
     }
 
     public List<User> findAll() {
@@ -52,10 +50,7 @@ public class UserService {
 
     public User findOne(Long id) {
         Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            return user.get();
-        } else {
-            throw new IllegalStateException("Non-existing user");
-        }
+        if (user.isPresent()) return user.get();
+        else throw new IllegalStateException("Non-existing user");
     }
 }

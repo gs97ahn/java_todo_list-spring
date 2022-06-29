@@ -31,9 +31,7 @@ public class TodoService {
             updatingTodo.setContent(request.getContent());
             updatingTodo.setIsComplete(request.getIsComplete());
             return updatingTodo.getId();
-        } else {
-            throw new IllegalStateException("Non-existing todo");
-        }
+        } else throw new IllegalStateException("Non-existing todo");
     }
 
     @Transactional
@@ -44,28 +42,20 @@ public class TodoService {
             Long deletingTodoId = deletingTodo.getId();
             todoRepository.delete(deletingTodo);
             return deletingTodoId;
-        } else {
-            throw new IllegalStateException("Non-existing todo");
-        }
+        } else throw new IllegalStateException("Non-existing todo");
     }
 
     @Transactional
     public User findUser(Long id) {
         Optional<Todo> todo = todoRepository.findById(id);
-        if (todo.isPresent()) {
-            return todo.get().getUser();
-        } else {
-            throw new IllegalStateException("Non-existing todo");
-        }
+        if (todo.isPresent()) return todo.get().getUser();
+        else throw new IllegalStateException("Non-existing todo");
     }
 
     @Transactional
     public Todo findOne(Long id) {
         Optional<Todo> todo = todoRepository.findById(id);
-        if (todo.isPresent()) {
-            return todo.get();
-        } else {
-            throw new IllegalStateException("Non-existing todo");
-        }
+        if (todo.isPresent()) return todo.get();
+        else throw new IllegalStateException("Non-existing todo");
     }
 }
