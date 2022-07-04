@@ -22,7 +22,6 @@ import java.util.List;
 @DynamicUpdate
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

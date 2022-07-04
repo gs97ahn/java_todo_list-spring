@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@ToString
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
