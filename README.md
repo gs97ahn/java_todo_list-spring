@@ -36,7 +36,7 @@
 
 | Content               | HTTP Method | URI                  | Response                    |
 |-----------------------|-------------|----------------------|-----------------------------|
-| User Sign Up          | POST        | /users               | HTTP response + userId      |
+| User signUp           | POST        | /users               | HTTP response + userId      |
 | User update           | PATCH       | /users/{userId}      | HTTP response + userId      |
 | User findOne          | GET         | /users/{userId}      | HTTP response + User        |
 | User findAll          | GET         | /users               | HTTP response + List<User>  |
