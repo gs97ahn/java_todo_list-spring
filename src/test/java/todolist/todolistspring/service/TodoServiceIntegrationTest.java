@@ -1,11 +1,9 @@
 package todolist.todolistspring.service;
 
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import todolist.todolistspring.dto.TodoCreateRequest;
-import todolist.todolistspring.dto.TodoUpdateRequest;
 import todolist.todolistspring.dto.UserCreateRequest;
 import todolist.todolistspring.entity.Todo;
 import todolist.todolistspring.entity.User;
@@ -38,7 +36,7 @@ public class TodoServiceIntegrationTest {
 
         TodoCreateRequest todo = new TodoCreateRequest();
         todo.setContent("Content");
-        todo.setIsComplete(Boolean.FALSE);
+        todo.setIsComplete(false);
 
         // when
         Todo savedTodoId = todoService.create(createdUser, todo);
@@ -49,7 +47,7 @@ public class TodoServiceIntegrationTest {
     }
 
     @Test
-    public void update() {
+    public void updateContent() {
         // given
         UserCreateRequest user = new UserCreateRequest();
         user.setName("Name");
@@ -64,27 +62,49 @@ public class TodoServiceIntegrationTest {
         todo.setIsComplete(Boolean.FALSE);
         Todo savedTodoId = todoService.create(createdUser, todo);
 
-        TodoUpdateRequest updatingTodo = new TodoUpdateRequest();
-        updatingTodo.setContent(todo.getContent());
-        updatingTodo.setIsComplete(Boolean.TRUE);
-
         // when
-        todoService.update(savedTodoId.getId(), updatingTodo);
+        todoService.updateContent(savedTodoId.getId(), "New Content");
 
         // then
-        assertThat(todo.getIsComplete()).isEqualTo(Boolean.FALSE);
+        assertThat(todo.getContent()).isEqualTo("New Content");
     }
 
     @Test
-    void nonExistingTodoUpdateException() {
-        // given
-        TodoUpdateRequest updatingTodo = new TodoUpdateRequest();
-        updatingTodo.setContent("Content");
-        updatingTodo.setIsComplete(Boolean.TRUE);
-
+    void nonExistingTodoContentUpdateException() {
         // when
         IllegalStateException e = assertThrows(
-                IllegalStateException.class, () -> todoService.update(0L, updatingTodo));
+                IllegalStateException.class, () -> todoService.updateContent(0L, "New Content"));
+        assertThat(e.getMessage()).isEqualTo("Non-existing todo");
+    }
+
+    @Test
+    public void updateIsComplete() {
+        // given
+        UserCreateRequest user = new UserCreateRequest();
+        user.setName("Name");
+        user.setEmail("email@email.com");
+        user.setGender('M');
+        user.setBirthdate(LocalDate.parse("1997-01-01"));
+        Long createdUserId = userService.signUp(user);
+        User createdUser = userService.findOne(createdUserId);
+
+        TodoCreateRequest todo = new TodoCreateRequest();
+        todo.setContent("Content");
+        todo.setIsComplete(Boolean.FALSE);
+        Todo savedTodoId = todoService.create(createdUser, todo);
+
+        // when
+        todoService.updateIsComplete(savedTodoId.getId(), Boolean.TRUE);
+
+        // then
+        assertThat(todo.getIsComplete()).isEqualTo(Boolean.TRUE);
+    }
+
+    @Test
+    void nonExistingTodoIsCompleteUpdateException() {
+        // when
+        IllegalStateException e = assertThrows(
+                IllegalStateException.class, () -> todoService.updateIsComplete(0L, Boolean.TRUE));
         assertThat(e.getMessage()).isEqualTo("Non-existing todo");
     }
 

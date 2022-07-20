@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.todolistspring.dto.TodoCreateRequest;
-import todolist.todolistspring.dto.TodoUpdateRequest;
 import todolist.todolistspring.entity.Todo;
 import todolist.todolistspring.entity.User;
 import todolist.todolistspring.respository.TodoRepository;
@@ -24,13 +23,22 @@ public class TodoService {
     }
 
     @Transactional
-    public Long update(Long id, TodoUpdateRequest request) {
+    public Long updateContent(Long id, String content) {
         Optional<Todo> todo = todoRepository.findById(id);
         if (todo.isPresent()) {
-            Todo updatingTodo = todo.get();
-            updatingTodo.setContent(request.getContent());
-            updatingTodo.setIsComplete(request.getIsComplete());
-            return updatingTodo.getId();
+            Todo updatingContent = todo.get();
+            updatingContent.updateContent(content);
+            return updatingContent.getId();
+        } else throw new IllegalStateException("Non-existing todo");
+    }
+
+    @Transactional
+    public Long updateIsComplete(Long id, Boolean isComplete) {
+        Optional<Todo> todo = todoRepository.findById(id);
+        if (todo.isPresent()) {
+            Todo updatingIsComplete = todo.get();
+            updatingIsComplete.updateIsComplete(isComplete);
+            return updatingIsComplete.getId();
         } else throw new IllegalStateException("Non-existing todo");
     }
 

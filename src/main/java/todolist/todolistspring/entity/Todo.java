@@ -1,8 +1,7 @@
 package todolist.todolistspring.entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TODOS")
-@Data
+@Getter
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
@@ -23,7 +22,7 @@ public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "todo_id")
-    private long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -41,6 +40,14 @@ public class Todo {
     public Todo(User user, String content, Boolean isComplete) {
         this.user = user;
         this.content = content;
+        this.isComplete = isComplete;
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateIsComplete(Boolean isComplete) {
         this.isComplete = isComplete;
     }
 }

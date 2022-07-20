@@ -1,8 +1,7 @@
 package todolist.todolistspring.entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-@Data
+@Getter
 @DynamicInsert
 @DynamicUpdate
 @NoArgsConstructor
@@ -39,12 +38,18 @@ public class User {
 
     private String name;
     private String email;
-    private char gender;
+    private Character gender;
     private LocalDate birthdate;
 
-    public User(String name, String email, char gender, LocalDate birthdate) {
+    public User(String name, String email, Character gender, LocalDate birthdate) {
         this.name = name;
         this.email = email;
+        this.gender = gender;
+        this.birthdate = birthdate;
+    }
+
+    public void updateUser(String name, Character gender, LocalDate birthdate) {
+        this.name = name;
         this.gender = gender;
         this.birthdate = birthdate;
     }

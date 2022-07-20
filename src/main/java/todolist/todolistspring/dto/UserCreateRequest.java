@@ -21,7 +21,7 @@ public class UserCreateRequest {
 
     @ApiModelProperty(example = "M")
     @NotNull(message = "Gender field is empty")
-    private char gender;
+    private Character gender;
 
     @ApiModelProperty(example = "2000-01-01")
     @NotBlank(message = "Birthdate field is empty")

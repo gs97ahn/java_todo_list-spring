@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import todolist.todolistspring.dto.TodoCreateRequest;
 import todolist.todolistspring.dto.TodoFindUserResponse;
-import todolist.todolistspring.dto.TodoUpdateRequest;
 import todolist.todolistspring.entity.Todo;
 import todolist.todolistspring.entity.User;
 import todolist.todolistspring.service.TodoService;
@@ -32,16 +31,29 @@ public class TodoController {
     }
 
     /**
-     * Todo update Information
+     * Todo update content
      * @param todoId requesting todo's id
-     * @param request todo's requesting information
+     * @param content todo's requesting information
+     * @return updated todo's id in Long
+     */
+    @ApiOperation(value = "Todo Content Update")
+    @PatchMapping("/todos/{todoId}/content")
+    public Long updateContent(@PathVariable("todoId") Long todoId, String content) {
+        Todo todo = todoService.findOne(todoId);
+        return todoService.updateContent(todoId, content);
+    }
+
+    /**
+     * Todo update isComplete
+     * @param todoId requesting todo's id
+     * @param isComplete todo's requesting information
      * @return updated todo's id in Long
      */
     @ApiOperation(value = "Todo Update")
-    @PatchMapping("/todos/{todoId}")
-    public Long update(@PathVariable("todoId") Long todoId, TodoUpdateRequest request) {
+    @PatchMapping("/todos/{todoId}/isComplete")
+    public Long updateIsComplete(@PathVariable("todoId") Long todoId, Boolean isComplete) {
         Todo todo = todoService.findOne(todoId);
-        return todoService.update(todoId, request);
+        return todoService.updateIsComplete(todoId, isComplete);
     }
 
     /**

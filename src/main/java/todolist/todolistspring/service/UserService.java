@@ -37,9 +37,7 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             User updatingUser = user.get();
-            updatingUser.setName(request.getName());
-            updatingUser.setGender(request.getGender());
-            updatingUser.setBirthdate(request.getBirthdate());
+            updatingUser.updateUser(request.getName(), request.getGender(), request.getBirthdate());
             return updatingUser.getId();
         } else throw new IllegalStateException("Non-existing user");
     }

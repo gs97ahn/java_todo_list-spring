@@ -14,11 +14,11 @@
 | id           | Long          |
 | name         | String        |
 | email        | String        |
-| gender       | char          |
+| gender       | Character     |
 | birthdate    | LocalDate     |
 | createdDate  | LocalDateTime |
 | modifiedDate | LocalDateTime |
-| todoList     | List<Todo>    |
+| todoList     | List\<Todo\>  |
 
 - Todo
 
@@ -26,7 +26,7 @@
 |--------------|---------------|
 | id           | Long          |
 | content      | String        |
-| isComplete   | Boolean       |
+| isComplete   | Boolena       |
 | dueAt        | LocalDateTime |
 | createdDate  | LocalDateTime |
 | modifiedDate | LocalDateTime |
@@ -34,16 +34,17 @@
 
 ## API
 
-| Content               | HTTP Method | URI                  | Response                    |
-|-----------------------|-------------|----------------------|-----------------------------|
-| User signUp           | POST        | /users               | HTTP response + userId      |
-| User update           | PATCH       | /users/{userId}      | HTTP response + userId      |
-| User findOne          | GET         | /users/{userId}      | HTTP response + User        |
-| User findAll          | GET         | /users               | HTTP response + List<User>  |
-| Todo create           | POST        | /users/{userId}/todo | HTTP response + todoId      |
-| Todo update           | PATCH       | /todo/{todoId}       | HTTP response + todoId      |
-| Todo delete           | DELETE      | /todos/{todoId}      | HTTP response + User        |
-| Todo findTodoWithUser | GET         | /todos/{todoId}      | HTTP response + Todo + User |
+| Content               | HTTP Method | URI                       | Response                    |
+|-----------------------|-------------|---------------------------|-----------------------------|
+| User signUp           | POST        | /user                     | HTTP response + userId      |
+| User update           | PATCH       | /user/{userId}            | HTTP response + userId      |
+| User findOne          | GET         | /user/{userId}            | HTTP response + User        |
+| User findAll          | GET         | /user                     | HTTP response + List<User>  |
+| Todo create           | POST        | /user/{userId}/todo       | HTTP response + todoId      |
+| Todo updateContent    | PATCH       | /todo/{todoId}/content    | HTTP response + todoId      |
+| Todo updateIsComplete | PATCH       | /todo/{todoId}/isComplete | HTTP response + todoId      |
+| Todo delete           | DELETE      | /todos/{todoId}           | HTTP response + User        |
+| Todo findTodoWithUser | GET         | /todos/{todoId}           | HTTP response + Todo + User |
 
 ## Test Case
 - userService
@@ -53,7 +54,9 @@
   - nonExistingUserUpdateException
 - todoService
   - create
-  - update
+  - updateContent
+  - nonExistingTodoUpdateException
+  - updateIsComplete
   - nonExistingTodoUpdateException
   - delete
   - nonExistingTodoDeleteException

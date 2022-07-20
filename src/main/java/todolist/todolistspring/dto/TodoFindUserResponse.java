@@ -14,7 +14,7 @@ public class TodoFindUserResponse {
     private Long userId;
     private String name;
     private String email;
-    private char gender;
+    private Character gender;
     private LocalDate birthdate;
     private LocalDateTime userCreatedDate;
     private LocalDateTime userLastModifiedDate;
